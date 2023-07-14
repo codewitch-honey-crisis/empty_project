@@ -118,6 +118,17 @@ touch_t touch;
 #endif
 #endif
 
+#ifdef HELTEC_WIFI_KIT_V2
+#ifdef ARDUINO
+static arduino::int_button<0,10,true> button1_raw;
+#else
+static esp_idf::int_button<0,10,true> button1_raw;
+#endif
+button_t buttons[] = {
+    button_t(button1_raw)
+};
+#endif
+
 #ifdef WIO_TERMINAL
 // TODO: Implement 5 way switch
 #endif

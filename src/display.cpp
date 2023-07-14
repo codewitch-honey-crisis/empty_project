@@ -66,16 +66,16 @@ void display_initialize() {
 #endif
 }
 #else
-void display_init() {
+void display_initialize() {
 #ifndef E_PAPER
     lcd.initialize();
-#ifdef LCD_ROTATION
-    lcd.rotation(LCD_ROTATION);
+#ifdef DISPLAY_ROTATION
+    lcd.rotation(DISPLAY_ROTATION);
 #endif
 #else
     epd.initialize();
-#ifdef LCD_ROTATION
-    epd.rotation(LCD_ROTATION);
+#ifdef DISPLAY_ROTATION
+    epd.rotation(DISPLAY_ROTATION);
 #endif
 #endif
 }

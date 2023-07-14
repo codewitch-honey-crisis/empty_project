@@ -116,6 +116,19 @@ using touch_t = esp_idf::gt911<38>;
 extern touch_t touch;
 extern void touch_initialize();
 #endif
+#ifdef HELTEC_WIFI_KIT_V2
+#include <button.hpp>
+#define HAS_BUTTONS
+#ifdef ARDUINO
+using button_t = arduino::multi_button;
+#else
+using button_t = esp_idf::multi_button;
+#endif
+constexpr static const size_t buttons_size = 1;
+extern button_t buttons[];
+extern void buttons_initialize();
+extern void buttons_update();
+#endif
 #ifdef WIO_TERMINAL
 // TODO: Implement 5-way switch
 #endif
