@@ -1,3 +1,5 @@
+#include <display.hpp>
+#ifdef HAS_DISPLAY
 #ifndef E_PAPER
 #ifdef ESP_PLATFORM
 #define LCD_IMPLEMENTATION
@@ -56,7 +58,7 @@ static void uix_flush(const gfx::rect16& bounds,
     }
 #endif
 }
-void display_init() {
+void display_initialize() {
 #ifndef LCD_PIN_NUM_VSYNC
     lcd_panel_init(lcd_buffer_size,lcd_flush_ready);
 #else
@@ -132,6 +134,5 @@ void display_screen(screen_t& new_screen) {
 #endif
 #endif
     active_screen->invalidate();
-
-    
 }
+#endif

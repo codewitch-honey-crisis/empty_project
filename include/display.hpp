@@ -9,6 +9,7 @@
 #endif
 #endif
 #ifdef WIO_TERMINAL
+#define HAS_DISPLAY
 #include <tft_spi.hpp>
 #include <ili9341.hpp>
 using namespace arduino;
@@ -22,6 +23,7 @@ using lcd_t = ili9341<LCD_DC,LCD_RESET,LCD_BACKLIGHT,bus_t,3,true,400,200>;
 #define LCD_FRAME_ADAPTER gfx::bitmap<gfx::rgb_pixel<LCD_BIT_DEPTH>>
 #endif // WIO_TERMINAL
 #ifdef T5_4_7
+#define HAS_DISPLAY
 #include <lilygot54in7.hpp>
 #ifdef ARDUINO
 extern arduino::lilygot54in7 epd;
@@ -37,6 +39,7 @@ extern esp_idf::lilygot54in7 epd;
 #define LCD_FRAME_ADAPTER gfx::bitmap<gfx::gsc_pixel<LCD_BIT_DEPTH>>
 #endif // T5_4_7
 
+#ifdef HAS_DISPLAY
 #define LCD_TRANSFER_KB 64
 
 // here we compute how many bytes are needed in theory to store the total screen.
@@ -68,8 +71,9 @@ using screen_t = uix::screen_ex<LCD_WIDTH,LCD_HEIGHT,
 extern screen_t* active_screen;
 
 // initializes the display
-extern void display_init();
+extern void display_initialize();
 // updates the display, redrawing as necessary
 extern void display_update();
 // switches the active screen
 extern void display_screen(screen_t& new_screen);
+#endif

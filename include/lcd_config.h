@@ -2,6 +2,7 @@
 #define LCD_CONFIG_H
 
 #ifdef TTGO_T1
+#define HAS_DISPLAY
 #define LCD_SPI_HOST    SPI3_HOST
 #define LCD_DMA
 #define LCD_BCKL_ON_LEVEL 1
@@ -26,6 +27,7 @@
 #endif // TTGO_T1
 
 #ifdef ESP_WROVER_KIT
+#define HAS_DISPLAY
 #include <esp_lcd_panel_ili9341.h>
 #define LCD_BCKL_ON_LEVEL 0
 #define LCD_BCKL_OFF_LEVEL !LCD_BCKL_ON_LEVEL
@@ -52,6 +54,7 @@
 #endif // ESP_WROVER_KIT
 
 #ifdef ESP_DISPLAY_S3
+#define HAS_DISPLAY
 #include <esp_lcd_panel_ili9488.h>
 #define LCD_BCKL_ON_LEVEL 1
 #define LCD_BCKL_OFF_LEVEL !LCD_BCKL_ON_LEVEL
@@ -92,6 +95,7 @@
 #endif // ESP_DISPLAY_S3
 
 #ifdef M5STACK_CORE2
+#define HAS_DISPLAY
 #include <esp_lcd_panel_ili9342.h>
 #define LCD_SPI_HOST    SPI3_HOST
 #define LCD_DMA
@@ -115,6 +119,7 @@
 #endif // M5STACK_CORE2
 
 #ifdef M5STACK_FIRE
+#define HAS_DISPLAY
 #include <esp_lcd_panel_ili9342.h>
 #define LCD_SPI_HOST    SPI3_HOST
 #define LCD_DMA
@@ -140,6 +145,7 @@
 #endif // M5STACK_FIRE
 
 #ifdef ESP_DISPLAY_4INCH
+#define HAS_DISPLAY
 #define LCD_BCKL_ON_LEVEL 1
 #define LCD_BCKL_OFF_LEVEL !LCD_BCKL_ON_LEVEL
 #define LCD_PIN_NUM_CS 1
@@ -190,6 +196,7 @@
 #endif // ESP_DISPLAY_4INCH
 
 #ifdef ESP_DISPLAY_4_3INCH
+#define HAS_DISPLAY
 #define LCD_BCKL_ON_LEVEL 1
 #define LCD_BCKL_OFF_LEVEL !LCD_BCKL_ON_LEVEL
 //#define LCD_PIN_NUM_CS 1
@@ -242,6 +249,7 @@
 #endif // ESP_DISPLAY_4INCH
 
 #ifdef T_DISPLAY_S3
+#define HAS_DISPLAY
 #define LCD_BCKL_ON_LEVEL 1
 #define LCD_BCKL_OFF_LEVEL !LCD_BCKL_ON_LEVEL
 #define LCD_DMA
@@ -273,6 +281,7 @@
 #endif // T_DISPLAY_S3
 
 #ifdef S3_T_QT
+#define HAS_DISPLAY
 #define LCD_SPI_HOST    SPI3_HOST
 #define LCD_DMA
 #define LCD_BCKL_ON_LEVEL 0
@@ -297,6 +306,7 @@
 #endif // S3_T_QT
 
 #ifdef M5STACK_S3_ATOM
+#define HAS_DISPLAY
 #define LCD_SPI_HOST    SPI3_HOST
 #define LCD_DMA
 #define LCD_BCKL_ON_LEVEL 1
@@ -321,6 +331,7 @@
 #endif // M5STACK_S3_ATOM
 
 #ifdef T_RGB
+#define HAS_DISPLAY
 #define LCD_BCKL_ON_LEVEL 1
 #define LCD_BCKL_OFF_LEVEL !LCD_BCKL_ON_LEVEL
 
@@ -369,6 +380,7 @@
 #endif // T_RGB
 
 #ifdef SUNTON_7INCH
+#define HAS_DISPLAY
 #define LCD_BCKL_ON_LEVEL 1
 #define LCD_BCKL_OFF_LEVEL !LCD_BCKL_ON_LEVEL
 #define LCD_PIN_NUM_DE 41
@@ -417,6 +429,7 @@
 #endif // SUNTON_7INCH
 
 #ifdef HELTEC_WIFI_KIT_V2
+#define HAS_DISPLAY
 #include <ssd1306_surface_adapter.hpp>
 #define LCD_I2C_HOST    0
 #define LCD_DMA
@@ -445,6 +458,7 @@
 #endif // HELTEC_WIFI_KIT_V2
 
 #ifdef ESP_USB_OTG
+#define HAS_DISPLAY
 #define LCD_SPI_HOST    SPI2_HOST
 #define LCD_DMA
 #define LCD_BCKL_ON_LEVEL 1
@@ -467,7 +481,7 @@
 #define LCD_INVERT_COLOR true
 #define LCD_SWAP_XY false
 #endif // ESP_USB_OTG
-
+#ifdef HAS_DISPLAY
 #ifndef LCD_WIDTH
 #ifdef LCD_SWAP_XY
 #if LCD_SWAP_XY
@@ -496,5 +510,6 @@
 #endif
 #ifndef LCD_DC_BIT_OFFSET
 #define LCD_DC_BIT_OFFSET 0
+#endif
 #endif
 #endif // LCD_CONFIG_H
