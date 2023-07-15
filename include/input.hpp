@@ -134,7 +134,17 @@ extern void buttons_initialize();
 extern void buttons_update();
 #endif
 #ifdef WIO_TERMINAL
-// TODO: Implement 5-way switch
+#include <button.hpp>
+#define HAS_BUTTONS
+#ifdef ARDUINO
+using button_t = arduino::multi_button;
+#else
+using button_t = esp_idf::multi_button;
+#endif
+constexpr static const size_t buttons_size = 5;
+extern button_t buttons[];
+extern void buttons_initialize();
+extern void buttons_update();
 #endif
 #ifdef T5_4_7
 #include <button.hpp>
