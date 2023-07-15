@@ -28,4 +28,4 @@ main.cpp contains the main application starting point and loop (both Arduino and
 
 ui.hpp and ui.cpp include the user interface code.
 
-The rest is more or less hands off unless you're adding devices, in which case you may need to modify display.hpp/cpp, and possibly lcd_config.h for screens, or input.hpp/cpp for buttons or touch. You'll of course need to edit the platformio.ini as well.
+The rest is more or less hands off unless you're adding devices, in which case you may need to modify display.hpp/cpp, and possibly lcd_config.h for screens, input.hpp/cpp for buttons or touch maybe power.hpp/cpp for power management. You'll of course need to edit the platformio.ini as well.
