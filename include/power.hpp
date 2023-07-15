@@ -10,10 +10,10 @@ extern void power_initialize();
 #include <m5core2_power.hpp>
 using power_t = m5core2_power;
 extern power_t power;
-extern void power_initialize();
+extern bool power_initialize();
 #endif
 
 #ifdef S3_T_QT
 #define HAS_POWER
-extern void power_initialize();
+extern bool power_initialize();
 #endif

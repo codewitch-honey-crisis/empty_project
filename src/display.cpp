@@ -58,26 +58,31 @@ static void uix_flush(const gfx::rect16& bounds,
     }
 #endif
 }
-void display_initialize() {
+bool display_initialize() {
 #ifndef LCD_PIN_NUM_VSYNC
-    lcd_panel_init(display_buffer_size,lcd_flush_ready);
+    return lcd_panel_init(display_buffer_size,lcd_flush_ready);
 #else
-    lcd_panel_init();
+    return lcd_panel_init();
 #endif
 }
 #else
-void display_initialize() {
+bool display_initialize() {
 #ifndef E_PAPER
-    lcd.initialize();
+    if(!lcd.initialize()) {
+        return false;
+    }
 #ifdef DISPLAY_ROTATION
     lcd.rotation(DISPLAY_ROTATION);
 #endif
 #else
-    epd.initialize();
+    if(gfx::gfx_result::success!=epd.initialize()) {
+        return false;
+    }
 #ifdef DISPLAY_ROTATION
     epd.rotation(DISPLAY_ROTATION);
 #endif
 #endif
+    return true;
 }
 #ifdef LCD_DMA
 void uix_wait(void* state) {

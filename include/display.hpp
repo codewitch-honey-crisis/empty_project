@@ -89,7 +89,7 @@ using screen_t = uix::screen_ex<DISPLAY_WIDTH,DISPLAY_HEIGHT,
 extern screen_t* active_screen;
 
 // initializes the display
-extern void display_initialize();
+extern bool display_initialize();
 // updates the display, redrawing as necessary
 extern void display_update();
 // switches the active screen

@@ -8,7 +8,7 @@ using namespace gfx;
 touch_t touch(Wire);
 #else
 #include <driver/i2c.h>
-touch_t touch(I2C_NUM_1);
+touch_t touch(I2C_NUM_0);
 #endif
 #endif
 
@@ -167,10 +167,11 @@ button_t buttons[] = {
 #endif
 
 #if defined(HAS_BUTTONS) && __has_include(<button.hpp>)
-void buttons_initialize() {
+bool buttons_initialize() {
     for(size_t i = 0;i<buttons_size;++i) {
         buttons[i].initialize();
     } 
+    return true;
 }
 void buttons_update() {
     for(size_t i = 0;i<buttons_size;++i) {
@@ -179,7 +180,7 @@ void buttons_update() {
 }
 #endif
 #if defined(HAS_TOUCH) && __has_include(<ft6236.hpp>)
-void touch_initialize() {
+bool touch_initialize() {
 #if defined(ESP_DISPLAY_S3)
 #ifdef ARDUINO
     Wire.begin(38,39,100*1000);
@@ -197,10 +198,13 @@ void touch_initialize() {
 #endif
 #endif
 
-    touch.initialize();
+    if(!touch.initialize()) {
+        return false;
+    }
 #ifdef TOUCH_ROTATION
     touch.rotation(TOUCH_ROTATION);
 #endif
+    return true;
 }
 static void uix_touch(point16* out_locations, size_t* in_out_locations_size, void* state) {
      if (touch.update()) {                                                  
@@ -225,11 +229,14 @@ void touch_activate_screen() {
 }
 #endif
 #if defined(HAS_TOUCH) && __has_include(<ft6336.hpp>)
-void touch_initialize() {
-    touch.initialize();
+bool touch_initialize() {
+    if(!touch.initialize()) {
+        return false;
+    }
 #ifdef TOUCH_ROTATION
     touch.rotation(TOUCH_ROTATION);
 #endif
+    return true;
 }
 static void uix_touch(point16* out_locations, size_t* in_out_locations_size, void* state) {
 #ifdef ARDUINO
@@ -262,7 +269,7 @@ void touch_activate_screen() {
 #ifndef ARDUINO
 #include <driver/i2c.h>
 #endif
-void touch_initialize() {
+bool touch_initialize() {
 #if defined(ESP_DISPLAY_4INCH) || defined(ESP_DISPLAY_4_3INCH)
 #ifdef ARDUINO
     Wire1.begin(17,18);
@@ -280,13 +287,7 @@ void touch_initialize() {
     i2c_driver_install(I2C_NUM_1, i2c_conf.mode, 0, 0, 0); 
 #endif
 #endif
-    if(!touch.initialize()) {
-#ifdef ARDUINO
-        Serial.println("Error: Touch not initialized");
-#else
-        printf("Error: Touch not initialized\n");
-#endif
-    }
+    return touch.initialize();
 }
 static void uix_touch(point16* out_locations, size_t* in_out_locations_size, void* state) {
     touch.update();

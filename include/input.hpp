@@ -16,7 +16,7 @@ using touch_t = arduino::ft6236<480,320>;
 using touch_t = esp_idf::ft6236<480,320>;
 #endif
 extern touch_t touch;
-extern void touch_initialize();
+extern bool touch_initialize();
 extern void touch_activate_screen();
 #endif
 #ifdef T_DISPLAY_S3
@@ -29,7 +29,7 @@ using button_t = esp_idf::multi_button;
 #endif
 constexpr static const size_t buttons_size = 2;
 extern button_t buttons[];
-extern void buttons_initialize();
+extern bool buttons_initialize();
 extern void buttons_update();
 #endif
 #ifdef TTGO_T1
@@ -42,7 +42,7 @@ using button_t = esp_idf::multi_button;
 #endif
 constexpr static const size_t buttons_size = 2;
 extern button_t buttons[];
-extern void buttons_initialize();
+extern bool buttons_initialize();
 extern void buttons_update();
 #endif
 #ifdef M5STACK_FIRE
@@ -55,7 +55,7 @@ using button_t = esp_idf::multi_button;
 #endif
 constexpr static const size_t buttons_size = 3;
 extern button_t buttons[];
-extern void buttons_initialize();
+extern bool buttons_initialize();
 extern void buttons_update();
 #endif
 #ifdef M5STACK_CORE2
@@ -67,7 +67,7 @@ using touch_t = arduino::ft6336<280,320,39>;
 using touch_t = esp_idf::ft6336<280,320,39>;
 #endif
 extern touch_t touch;
-extern void touch_initialize();
+extern bool touch_initialize();
 extern void touch_activate_screen();
 #endif
 #ifdef S3_T_QT
@@ -80,7 +80,7 @@ using button_t = esp_idf::multi_button;
 #endif
 constexpr static const size_t buttons_size = 2;
 extern button_t buttons[];
-extern void buttons_initialize();
+extern bool buttons_initialize();
 extern void buttons_update();
 #endif
 #ifdef M5STACK_S3_ATOM
@@ -93,7 +93,7 @@ using button_t = esp_idf::multi_button;
 #endif
 constexpr static const size_t buttons_size = 1;
 extern button_t buttons[];
-extern void buttons_initialize();
+extern bool buttons_initialize();
 extern void buttons_update();
 #endif
 #ifdef ESP_DISPLAY_4INCH
@@ -105,7 +105,7 @@ using touch_t = arduino::gt911<38,-1,0x14>;
 using touch_t = esp_idf::gt911<38,-1,0x14>;
 #endif
 extern touch_t touch;
-extern void touch_initialize();
+extern bool touch_initialize();
 extern void touch_activate_screen();
 #endif
 #ifdef ESP_DISPLAY_4_3INCH
@@ -117,7 +117,7 @@ using touch_t = arduino::gt911<38,-1,0x14>;
 using touch_t = esp_idf::gt911<38,-1,0x14>;
 #endif
 extern touch_t touch;
-extern void touch_initialize();
+extern bool touch_initialize();
 extern void touch_activate_screen();
 #endif
 #ifdef HELTEC_WIFI_KIT_V2
@@ -130,7 +130,7 @@ using button_t = esp_idf::multi_button;
 #endif
 constexpr static const size_t buttons_size = 1;
 extern button_t buttons[];
-extern void buttons_initialize();
+extern bool buttons_initialize();
 extern void buttons_update();
 #endif
 #ifdef WIO_TERMINAL
@@ -143,7 +143,7 @@ using button_t = esp_idf::multi_button;
 #endif
 constexpr static const size_t buttons_size = 5;
 extern button_t buttons[];
-extern void buttons_initialize();
+extern bool buttons_initialize();
 extern void buttons_update();
 #endif
 #ifdef T5_4_7
@@ -156,6 +156,6 @@ using button_t = esp_idf::multi_button;
 #endif
 constexpr static const size_t buttons_size = 4;
 extern button_t buttons[];
-extern void buttons_initialize();
+extern bool buttons_initialize();
 extern void buttons_update();
 #endif
