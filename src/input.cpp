@@ -5,7 +5,7 @@
 using namespace gfx;
 #ifdef ARDUINO
 #include <Wire.h>
-touch_t touch(Wire1);
+touch_t touch(Wire);
 #else
 #include <driver/i2c.h>
 touch_t touch(I2C_NUM_1);
@@ -99,10 +99,10 @@ button_t buttons[] = {
 using namespace gfx;
 #ifdef ARDUINO
 #include <Wire.h>
-touch_t touch;
+touch_t touch(Wire1);
 #else
 #include <driver/i2c.h>
-touch_t touch;
+touch_t touch(I2C_NUM_1);
 #endif
 #endif
 
@@ -111,10 +111,10 @@ touch_t touch;
 using namespace gfx;
 #ifdef ARDUINO
 #include <Wire.h>
-touch_t touch;
+touch_t touch(Wire1);
 #else
 #include <driver/i2c.h>
-touch_t touch;
+touch_t touch(I2C_NUM_1);
 #endif
 #endif
 
@@ -167,6 +167,23 @@ void buttons_update() {
 #endif
 #if defined(HAS_TOUCH) && __has_include(<ft6236.hpp>)
 void touch_initialize() {
+#if defined(ESP_DISPLAY_S3)
+#ifdef ARDUINO
+    Wire.begin(38,39,100*1000);
+#else
+    i2c_config_t i2c_conf;                                 
+    i2c_conf.mode = I2C_MODE_MASTER;                       
+    i2c_conf.sda_io_num = (gpio_num_t)38;     
+    i2c_conf.sda_pullup_en = GPIO_PULLUP_ENABLE;           
+    i2c_conf.scl_io_num = (gpio_num_t)39;     
+    i2c_conf.scl_pullup_en = GPIO_PULLUP_ENABLE;           
+    i2c_conf.master.clk_speed = 100*1000;                
+    i2c_conf.clk_flags = 0;                                
+    i2c_param_config(I2C_NUM_0, &i2c_conf);                
+    i2c_driver_install(I2C_NUM_0, i2c_conf.mode, 0, 0, 0); 
+#endif
+#endif
+
     touch.initialize();
 #ifdef TOUCH_ROTATION
     touch.rotation(TOUCH_ROTATION);
@@ -229,11 +246,37 @@ void touch_activate_screen() {
 }
 #endif
 #if defined(HAS_TOUCH) && __has_include(<gt911.hpp>)
+#ifndef ARDUINO
+#include <driver/i2c.h>
+#endif
 void touch_initialize() {
-    touch.initialize();
+#if defined(ESP_DISPLAY_4INCH) || defined(ESP_DISPLAY_4_3INCH)
+#ifdef ARDUINO
+    Wire1.begin(17,18);
+    Wire1.setClock(400*1000);
+#else
+    i2c_config_t i2c_conf;                                 
+    i2c_conf.mode = I2C_MODE_MASTER;                       
+    i2c_conf.sda_io_num = (gpio_num_t)17;     
+    i2c_conf.sda_pullup_en = GPIO_PULLUP_ENABLE;           
+    i2c_conf.scl_io_num = (gpio_num_t)18;     
+    i2c_conf.scl_pullup_en = GPIO_PULLUP_ENABLE;           
+    i2c_conf.master.clk_speed = 400*1000;                
+    i2c_conf.clk_flags = 0;                                
+    i2c_param_config(I2C_NUM_1, &i2c_conf);                
+    i2c_driver_install(I2C_NUM_1, i2c_conf.mode, 0, 0, 0); 
+#endif
+#endif
+    if(!touch.initialize()) {
+#ifdef ARDUINO
+        Serial.println("Error: Touch not initialized");
+#else
+        printf("Error: Touch not initialized\n");
+#endif
+    }
 }
 static void uix_touch(point16* out_locations, size_t* in_out_locations_size, void* state) {
-    touch.update();                             
+    touch.update();
     size_t touches = touch.locations_size();    
     if (touches) {                              
         if (touches > *in_out_locations_size) { 

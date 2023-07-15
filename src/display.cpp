@@ -22,10 +22,10 @@ esp_idf::lilygot54in7 epd;
 // For screens with no DMA we only 
 // have one buffer
 #ifdef LCD_DMA
-uint8_t lcd_buffer1[lcd_buffer_size];
-uint8_t lcd_buffer2[lcd_buffer_size];
+uint8_t display_buffer1[display_buffer_size];
+uint8_t display_buffer2[display_buffer_size];
 #else
-uint8_t lcd_buffer1[lcd_buffer_size];
+uint8_t display_buffer1[display_buffer_size];
 #endif
 
 // the active screen
@@ -60,7 +60,7 @@ static void uix_flush(const gfx::rect16& bounds,
 }
 void display_initialize() {
 #ifndef LCD_PIN_NUM_VSYNC
-    lcd_panel_init(lcd_buffer_size,lcd_flush_ready);
+    lcd_panel_init(display_buffer_size,lcd_flush_ready);
 #else
     lcd_panel_init();
 #endif

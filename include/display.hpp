@@ -58,10 +58,10 @@ extern esp_idf::lilygot54in7 epd;
 #endif // T5_4_7
 
 #ifdef HAS_DISPLAY
-#define LCD_TRANSFER_KB 64
+#define DISPLAY_TRANSFER_KB 64
 
 // here we compute how many bytes are needed in theory to store the total screen.
-constexpr static const size_t lcd_screen_total_size = gfx::bitmap<typename DISPLAY_FRAME_ADAPTER::pixel_type>::sizeof_buffer(DISPLAY_WIDTH,DISPLAY_HEIGHT);
+constexpr static const size_t display_screen_total_size = gfx::bitmap<typename DISPLAY_FRAME_ADAPTER::pixel_type>::sizeof_buffer(DISPLAY_WIDTH,DISPLAY_HEIGHT);
 // define our transfer buffer(s) 
 // For devices with no DMA we only use one buffer.
 // Our total size is either LCD_TRANSFER_KB 
@@ -70,13 +70,13 @@ constexpr static const size_t lcd_screen_total_size = gfx::bitmap<typename DISPL
 // Note that in the case of DMA the memory
 // is divided between two buffers.
 #ifdef LCD_DMA
-constexpr static const size_t lcd_buffer_size = (LCD_TRANSFER_KB*512)>lcd_screen_total_size?lcd_screen_total_size:(LCD_TRANSFER_KB*512);
-extern uint8_t lcd_buffer1[];
-extern uint8_t lcd_buffer2[];
+constexpr static const size_t display_buffer_size = (DISPLAY_TRANSFER_KB*512)>display_screen_total_size?display_screen_total_size:(DISPLAY_TRANSFER_KB*512);
+extern uint8_t display_buffer1[];
+extern uint8_t display_buffer2[];
 #else
-constexpr static const size_t lcd_buffer_size = (LCD_TRANSFER_KB*1024)>lcd_screen_total_size?lcd_screen_total_size:(LCD_TRANSFER_KB*1024);
-extern uint8_t lcd_buffer1[];
-static uint8_t* const lcd_buffer2 = nullptr;
+constexpr static const size_t display_buffer_size = (DISPLAY_TRANSFER_KB*1024)>display_screen_total_size?display_screen_total_size:(DISPLAY_TRANSFER_KB*1024);
+extern uint8_t display_buffer1[];
+static uint8_t* const display_buffer2 = nullptr;
 #endif
 
 #include <uix.hpp>

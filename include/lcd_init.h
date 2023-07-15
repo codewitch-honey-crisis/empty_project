@@ -1287,7 +1287,7 @@ if(((int)LCD_COLOR_SPACE) == 0) {
     panel_config.bits_per_pixel = LCD_BIT_DEPTH;
 #endif
     // Initialize the LCD configuration
-    LCD_PANEL(io_handle, &panel_config, &lcd_handle);
+    ESP_ERROR_CHECK(LCD_PANEL(io_handle, &panel_config, &lcd_handle));
 
 #ifdef LCD_PIN_NUM_BCKL
     // Turn off backlight to avoid unpredictable display on

@@ -11,19 +11,40 @@ extern "C" void app_main();
 #include <display.hpp>
 #include <input.hpp>
 #include <power.hpp>
-
+#include <ui.hpp>
+#ifdef HAS_DISPLAY
+using namespace gfx;
+using namespace uix;
+#endif
 static void common_init() {
 #ifdef HAS_POWER
     power_initialize();
 #endif
-#ifdef HAS_DISPLAY
-    display_initialize();
-#endif
 #ifdef HAS_BUTTONS
     buttons_initialize();
+#ifdef HAS_DISPLAY
+    buttons[0].on_pressed_changed([](bool pressed, void* state){
+        if(pressed) {
+            spoint16 tmp = spoint16::zero();
+            hello_button.on_touch(1,&tmp);
+        } else {
+            hello_button.on_release();
+        }
+    });
+#endif
 #endif
 #ifdef HAS_TOUCH
     touch_initialize();
+#endif
+
+#ifdef HAS_DISPLAY
+    display_initialize();
+    main_screen_initialize();
+    display_screen(main_screen);
+#ifdef HAS_TOUCH
+    touch_activate_screen();
+#endif
+
 #endif
 }
 

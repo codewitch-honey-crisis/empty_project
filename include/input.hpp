@@ -4,6 +4,7 @@
 #else
 #include <stdint.h>
 #include <stddef.h>
+#include <stdio.h>
 #endif
 #ifdef ESP_DISPLAY_S3
 #include <ft6236.hpp>
@@ -67,6 +68,7 @@ using touch_t = esp_idf::ft6336<280,320,39>;
 #endif
 extern touch_t touch;
 extern void touch_initialize();
+extern void touch_activate_screen();
 #endif
 #ifdef S3_T_QT
 #include <button.hpp>
@@ -98,23 +100,25 @@ extern void buttons_update();
 #include <gt911.hpp>
 #define HAS_TOUCH
 #ifdef ARDUINO
-using touch_t = arduino::gt911<38>;
+using touch_t = arduino::gt911<38,-1,0x14>;
 #else
-using touch_t = esp_idf::gt911<38>;
+using touch_t = esp_idf::gt911<38,-1,0x14>;
 #endif
 extern touch_t touch;
 extern void touch_initialize();
+extern void touch_activate_screen();
 #endif
 #ifdef ESP_DISPLAY_4_3INCH
 #include <gt911.hpp>
 #define HAS_TOUCH
 #ifdef ARDUINO
-using touch_t = arduino::gt911<38>;
+using touch_t = arduino::gt911<38,-1,0x14>;
 #else
-using touch_t = esp_idf::gt911<38>;
+using touch_t = esp_idf::gt911<38,-1,0x14>;
 #endif
 extern touch_t touch;
 extern void touch_initialize();
+extern void touch_activate_screen();
 #endif
 #ifdef HELTEC_WIFI_KIT_V2
 #include <button.hpp>
