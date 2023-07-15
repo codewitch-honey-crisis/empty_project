@@ -136,13 +136,6 @@ static arduino::int_button<WIO_5S_UP,10,true> button2_raw;
 static arduino::int_button<WIO_5S_RIGHT,10,true> button3_raw;
 static arduino::int_button<WIO_5S_DOWN,10,true> button4_raw;
 static arduino::int_button<WIO_5S_PRESS,10,true> button5_raw;
-#else
-static esp_idf::int_button<WIO_5S_LEFT,10,true> button1_raw;
-static esp_idf::int_button<WIO_5S_UP,10,true> button2_raw;
-static esp_idf::int_button<WIO_5S_RIGHT,10,true> button3_raw;
-static esp_idf::int_button<WIO_5S_DOWN,10,true> button4_raw;
-static esp_idf::int_button<WIO_5S_PRESS,10,true> button5_raw;
-#endif
 button_t buttons[] = {
     button_t(button1_raw),
     button_t(button2_raw),
@@ -150,6 +143,7 @@ button_t buttons[] = {
     button_t(button4_raw),
     button_t(button5_raw)
 };
+#endif
 #endif
 
 #ifdef T5_4_7
